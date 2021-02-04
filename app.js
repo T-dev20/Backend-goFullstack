@@ -5,7 +5,12 @@ const express = require('express');
  la méthode express() permet de créer une app Express*****/
 const app = express();
 
-app.use((req, res) => {
+app.use((req, res, next) => {
+    console.log('Requête reçue !');
+    next();
+});
+
+app.use((req, res, next) => {
     res.json({message: 'Votre requête a bien été reçue !'});
 });
 
