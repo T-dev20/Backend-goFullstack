@@ -2,6 +2,7 @@
 const http = require('http');
 //importation de l'app
 const app = require('./app');
+app.set('port', process.env.PORT || 3000);
 
 //Serveur prêt
 const server = http.createServer(app);
