@@ -17,6 +17,11 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     res.json({message: 'Votre requête a bien été reçue !'});
+    next();
+});
+
+app.use((req, res) => {
+    console.log('Réponse envoyée avec succès !');
 });
 
 /*** Exportation de l'app pour pouvoir y accéder depuis les 
