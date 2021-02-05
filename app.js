@@ -7,6 +7,14 @@ const bodyParser = require('body-parser');
  la méthode express() permet de créer une app Express*****/
 const app = express();
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb+srv://trav-dev1215:<password>@cluster0.lzdtw.mongodb.net/<dbname>?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
+
 
 //1) accéder à notre API depuis n'importe quelle origine
 //2)ajouter les headers mentionnés aux requêtes envoyées vers notre API 
