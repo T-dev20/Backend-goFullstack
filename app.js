@@ -80,6 +80,12 @@ app.put('/api/stuff/:id', (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 });
 
+app.delete('/api/stuff/:id', (req, res, next) => {
+  Thing.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+    .catch(error => res.status(400).json({ error }));
+});
+
 /*** Exportation de l'app pour pouvoir y accéder depuis les 
 autres fichiers du projet, notamment notre serveur Node *****/
 module.exports = app;
