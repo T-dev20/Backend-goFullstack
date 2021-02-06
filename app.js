@@ -3,6 +3,7 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const Thing = require('./models/thing');
 
 
 mongoose.connect('mongodb+srv://trav-dev1215:QfXZU85x6VpzIgLJ@cluster0.lzdtw.mongodb.net/test?retryWrites=true&w=majority',
@@ -28,12 +29,23 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+/*Ici, vous créez une instance de votre modèle Thing en 
+lui passant un objet JavaScript contenant toutes les informations
+requises du corps de requête analysé (en ayant supprimé en amont le faux_id 
+envoyé par le front-end).
+
+L'opérateur spread ... est utilisé pour faire une copie 
+de tous les éléments de req.body*/
 //pour la requête POST
 app.post('/api/stuff', (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: 'Objet créé !'
+  delete req.body._id;
+  const thing = new Thing({
+    ...req.body
   });
+  thing.save()/*enregistre le Thing dans la base de D*/
+    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .catch(error => res.status(400).json({ error }));
 });
 
 app.use('/api/stuff', (req, res, next) => {
