@@ -2,18 +2,19 @@
 const express = require('express');
 
 const bodyParser = require('body-parser');
-
-/****Notre application sera contenue dans cette constante
- la méthode express() permet de créer une app Express*****/
-const app = express();
-
 const mongoose = require('mongoose');
+
 
 mongoose.connect('mongodb+srv://trav-dev1215:QfXZU85x6VpzIgLJ@cluster0.lzdtw.mongodb.net/test?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+
+/****Notre application sera contenue dans cette constante
+ la méthode express() permet de créer une app Express*****/
+const app = express();
 
 
 //1) accéder à notre API depuis n'importe quelle origine
