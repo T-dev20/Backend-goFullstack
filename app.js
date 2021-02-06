@@ -49,6 +49,17 @@ app.post('/api/stuff', (req, res, next) => {
     next();
 });
 
+
+/*nous utilisons la méthode get() pour répondre 
+uniquement aux demandes GET à cet endpoint ;
+nous utilisons deux-points : en face du segment dynamique 
+de la route pour la rendre accessible en tant que paramètre ;
+
+nous utilisons ensuite la méthode findOne() dans notre 
+modèle Thing pour trouver le Thing unique ayant le même _id que le paramètre de la requête ;
+ce Thing est ensuite retourné dans une Promise et envoyé au front-end ;
+
+si aucun Thing n'est trouvé ou si une erreur se produit, nous envoyons une erreur 404 au front-end, avec l'erreur générée*/
 app.get('/api/stuff/:id', (req, res, next) => {
   Thing.findOne({ _id: req.params.id })
     .then(thing => res.status(200).json(thing))
