@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
 
+//il s'agit d'une fonction asynchrone qui renvoie une Promise dans laquelle nous recevons le hash généré ;
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
