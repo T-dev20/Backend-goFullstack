@@ -1,7 +1,7 @@
 //importation de Express
 const express = require('express');
 const bodyParser = require('body-parser');
-//importation des routeur
+//importation des routeurs
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 
