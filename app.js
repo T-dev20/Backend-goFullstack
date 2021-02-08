@@ -1,7 +1,8 @@
 //importation de Express
 const express = require('express');
-
 const bodyParser = require('body-parser');
+//importation du routeur
+const stuffRoutes = require('./routes/stuff');
 const mongoose = require('mongoose');
 
 
@@ -28,6 +29,9 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+//pour cette route, on utilise la logique du routeur stuffRoutes
+app.use('/api/stuff', stuffRoutes);
 
 
 /*** Exportation de l'app pour pouvoir y accéder depuis les 
