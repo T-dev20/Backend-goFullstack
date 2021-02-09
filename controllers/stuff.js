@@ -1,26 +1,26 @@
 const Thing = require('../models/thing');
 
+// Pour ajouter un fichier à la requête, le front-end doit envoyer les 
+// données de la requête sous la forme form-data, et non sous forme de JSON. 
+// Le corps de la requête contient une chaîne thing , qui est simplement 
+// un objet Thing converti en chaîne. Nous devons donc l'analyser à l'aide de JSON.parse() 
+// pour obtenir un objet utilisable.
+
+// Nous devons également résoudre l'URL complète de notre image, car 
+// req.file.filename ne contient que le segment filename . Nous utilisons 
+// req.protocol pour obtenir le premier segment (dans notre cas 'http' ). 
+// Nous ajoutons '://' , puis utilisons req.get('host') pour résoudre 
+// l'hôte du serveur (ici, 'localhost:3000' ). Nous ajoutons finalement '/images/' et le nom de fichier pour compléter notre URL.
 exports.createThing = (req, res, next) => {
+  const thingObject = JSON.parse(req.body.thing);
+  delete thingObject._id;
   const thing = new Thing({
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId
+    ...thingObject,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   });
-  thing.save().then(
-    () => {
-      res.status(201).json({
-        message: 'Post saved successfully!'
-      });
-    }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
+  thing.save()
+    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOneThing = (req, res, next) => {
