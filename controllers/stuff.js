@@ -1,4 +1,5 @@
 const Thing = require('../models/thing');
+const fs = require('fs');
 
 // Pour ajouter un fichier à la requête, le front-end doit envoyer les 
 // données de la requête sous la forme form-data, et non sous forme de JSON. 
