@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 
+const path = require('path');
+
 const mongoose = require('mongoose');
 
 
@@ -31,6 +33,8 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //pour cette route, on utilise la logique du routeur stuffRoutes
 app.use('/api/stuff', stuffRoutes);
